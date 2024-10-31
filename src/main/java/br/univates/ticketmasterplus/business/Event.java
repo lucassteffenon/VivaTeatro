@@ -10,6 +10,7 @@ package br.univates.ticketmasterplus.business;
  */
 public class Event {
 
+    private int idEvent;
     private String name;
     private String description;
     private String startDate;
@@ -23,7 +24,8 @@ public class Event {
         
     }
 
-    public Event (String name, String description, String startDate, String startHour, String endDate, String endHour, int seatsNumber, int basePrice) {
+    public Event (int idEvent, String name, String description, String startDate, String startHour, String endDate, String endHour, int seatsNumber, int basePrice) {
+        this.idEvent = idEvent;
         this.name = name;
         this.description = description;
         this.startDate = startDate;
@@ -32,6 +34,14 @@ public class Event {
         this.endHour = endHour;
         this.seatsNumber = seatsNumber;
         this.basePrice = basePrice;
+    }
+    
+    public int getIdEvent(){
+        return idEvent;
+    }
+    
+    public void setIdEvent(int idEvent){
+        this.idEvent = idEvent;
     }
 
     public String getName() {
@@ -53,6 +63,13 @@ public class Event {
     public String getStartDate() {
         return startDate;
     }
+    
+    public String getStartDateFormatada(){
+        String dd = startDate.substring(8, 10);
+        String mm = startDate.substring(5,7);
+        String aaaa = startDate.substring(0,4);
+        return dd + "/" + mm + "/" + aaaa;
+    }
 
     public void setStartDate(String startDate) {
         this.startDate = startDate;
@@ -68,6 +85,13 @@ public class Event {
 
     public String getEndDate() {
         return endDate;
+    }
+    
+    public String getEndDateFormatada(){
+        String dd = endDate.substring(8,10);
+        String mm = endDate.substring(5,7);
+        String aaaa = endDate.substring(0,4);
+        return dd + "/" + mm + "/" + aaaa;
     }
 
     public void setEndDate(String endDate) {

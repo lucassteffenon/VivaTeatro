@@ -4,17 +4,57 @@
  */
 package br.univates.ticketmasterplus.presentationGUI;
 
+import br.univates.ticketmasterplus.business.Event;
+import br.univates.ticketmasterplus.businessDAO.ticketMasterPlusDAO;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.Timer;
+
 /**
  *
  * @author lucassteffenon
  */
 public class MainScreen extends javax.swing.JFrame {
+    
+    Event evento = new Event();
 
-    /**
-     * Creates new form MainScreen2
-     */
-    public MainScreen() {
-        initComponents();
+    public void refreshEventsList() throws SQLException{
+        ticketMasterPlusDAO dao = new ticketMasterPlusDAO();
+        ArrayList<Event> listaEventosSQL = dao.getEventsList();
+        
+        this.listaEventos.removeAll();
+        DefaultListModel model = new DefaultListModel();
+        
+        for ( Event evento : listaEventosSQL){
+            model.addElement( "Start Date: " + evento.getStartDateFormatada() + ", Start Hour: " + evento.getStartHour() + ", Event Name: " + evento.getName());
+        }
+        this.listaEventos.setModel(model);
+    }
+    
+    
+    
+    public MainScreen(){
+        try {
+            initComponents();
+            this.refreshEventsList();
+            
+            // Configuração do Timer para atualizar a lista a cada 10 segundos
+            Timer timer = new Timer(2000, e -> {
+                try {
+                    refreshEventsList();
+                } catch (SQLException ex) {
+                    Logger.getLogger(MainScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+            timer.start();
+        } catch (SQLException ex) {
+            Logger.getLogger(MainScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     /**
@@ -32,7 +72,8 @@ public class MainScreen extends javax.swing.JFrame {
         btnEditEvent = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        listaEventos = new javax.swing.JList<>();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,8 +94,18 @@ public class MainScreen extends javax.swing.JFrame {
         });
 
         btnEditEvent.setText("Edit Event");
+        btnEditEvent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditEventActionPerformed(evt);
+            }
+        });
 
         btnExit.setText("Exit");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -74,7 +125,7 @@ public class MainScreen extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btnExit)))
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,12 +141,19 @@ public class MainScreen extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        listaEventos.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        listaEventos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listaEventosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(listaEventos);
+
+        jLabel1.setText("Events List");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -103,15 +161,22 @@ public class MainScreen extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 19, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(173, 173, 173)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(4, 4, 4)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(23, Short.MAX_VALUE))
         );
@@ -125,11 +190,38 @@ public class MainScreen extends javax.swing.JFrame {
 
     private void btnCreateNewEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateNewEventActionPerformed
         
-        EventsScreen es = new EventsScreen();
+        EventScreen es = new EventScreen(this.evento, 0);
         es.setLocationRelativeTo(null);
         es.setVisible(true);
         
     }//GEN-LAST:event_btnCreateNewEventActionPerformed
+
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_btnExitActionPerformed
+
+    private void listaEventosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaEventosMouseClicked
+        // TODO add your handling code here:
+        String startDate = listaEventos.getSelectedValue().substring(12,22).replaceAll("[^0-9]", "");
+        String dd = startDate.substring(0, 2);
+        String mm = startDate.substring(2, 4);
+        String yyyy = startDate.substring(4, 8);
+        String dataAmericana = yyyy + "-" + mm + "-" + dd;
+        evento.setStartDate(dataAmericana);
+        evento.setStartHour(listaEventos.getSelectedValue().substring(36,44));
+        evento.setName(listaEventos.getSelectedValue().substring(58));
+    }//GEN-LAST:event_listaEventosMouseClicked
+
+    private void btnEditEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditEventActionPerformed
+       
+       ticketMasterPlusDAO dao = new ticketMasterPlusDAO();
+       this.evento = dao.getEvento(this.evento.getName(), this.evento.getStartDate(), this.evento.getStartHour());
+       EventScreen es = new EventScreen(this.evento, 1);
+       es.setLocationRelativeTo(null);
+       es.setVisible(true);
+        
+    }//GEN-LAST:event_btnEditEventActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,8 +264,9 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JButton btnCreateNewEvent;
     private javax.swing.JButton btnEditEvent;
     private javax.swing.JButton btnExit;
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<String> listaEventos;
     // End of variables declaration//GEN-END:variables
 }

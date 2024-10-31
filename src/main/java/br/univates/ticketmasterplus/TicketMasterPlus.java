@@ -5,6 +5,9 @@
 package br.univates.ticketmasterplus;
 
 import br.univates.ticketmasterplus.presentationGUI.MainScreen;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -13,8 +16,10 @@ import br.univates.ticketmasterplus.presentationGUI.MainScreen;
 public class TicketMasterPlus {
 
     public static void main(String[] args) {
-        MainScreen ms = new MainScreen();
+        MainScreen ms;
+        ms = new MainScreen();
         ms.setLocationRelativeTo(null);
         ms.setVisible(true);
+        
     }
 }
