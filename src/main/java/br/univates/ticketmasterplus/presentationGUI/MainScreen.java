@@ -5,13 +5,15 @@
 package br.univates.ticketmasterplus.presentationGUI;
 
 import br.univates.ticketmasterplus.business.Event;
-import br.univates.ticketmasterplus.businessDAO.ticketMasterPlusDAO;
+import br.univates.ticketmasterplus.businessDAO.TicketMasterPlusDAO;
+import java.awt.Color;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /**
@@ -23,7 +25,7 @@ public class MainScreen extends javax.swing.JFrame {
     Event evento = new Event();
 
     public void refreshEventsList() throws SQLException{
-        ticketMasterPlusDAO dao = new ticketMasterPlusDAO();
+        TicketMasterPlusDAO dao = new TicketMasterPlusDAO();
         ArrayList<Event> listaEventosSQL = dao.getEventsList();
         
         this.listaEventos.removeAll();
@@ -120,11 +122,11 @@ public class MainScreen extends javax.swing.JFrame {
                         .addGap(28, 28, 28)
                         .addComponent(btnCreateNewEvent))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(btnEditEvent))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btnExit)))
+                        .addComponent(btnExit))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(btnEditEvent)))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -185,6 +187,20 @@ public class MainScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuyTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuyTicketsActionPerformed
+        
+        if (this.evento.getName() != null) {
+            TicketMasterPlusDAO dao = new TicketMasterPlusDAO();
+            this.evento = dao.getEvento(this.evento.getName(), this.evento.getStartDate(), this.evento.getStartHour());
+            BuyTickets bt = new BuyTickets(this.evento);
+            bt.setLocationRelativeTo(null);
+            bt.setVisible(true);  
+        } else {
+            JOptionPane.showMessageDialog(null, "Nenhum evento foi selecionado.", "Aviso", JOptionPane.WARNING_MESSAGE);
+        }
+        
+        
+        
+        
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuyTicketsActionPerformed
 
@@ -215,11 +231,16 @@ public class MainScreen extends javax.swing.JFrame {
 
     private void btnEditEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditEventActionPerformed
        
-       ticketMasterPlusDAO dao = new ticketMasterPlusDAO();
-       this.evento = dao.getEvento(this.evento.getName(), this.evento.getStartDate(), this.evento.getStartHour());
-       EventScreen es = new EventScreen(this.evento, 1);
-       es.setLocationRelativeTo(null);
-       es.setVisible(true);
+       if (this.evento.getName() != null){
+            TicketMasterPlusDAO dao = new TicketMasterPlusDAO();
+            this.evento = dao.getEvento(this.evento.getName(), this.evento.getStartDate(), this.evento.getStartHour());
+            EventScreen es = new EventScreen(this.evento, 1);
+            es.setLocationRelativeTo(null);
+            es.setVisible(true);
+       } else {
+            JOptionPane.showMessageDialog(null, "Nenhum evento foi selecionado.", "Aviso", JOptionPane.WARNING_MESSAGE);
+       }
+       
         
     }//GEN-LAST:event_btnEditEventActionPerformed
 

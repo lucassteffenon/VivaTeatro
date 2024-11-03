@@ -6,6 +6,7 @@ package br.univates.ticketmasterplus.businessDAO;
 
 import br.univates.ticketmasterplus.business.Event;
 import br.univates.ticketmasterplus.business.Seat;
+import br.univates.ticketmasterplus.business.SeatReservation;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,7 +26,7 @@ import java.util.logging.Logger;
  *
  * @author lucassteffenon
  */
-public class ticketMasterPlusDAO {
+public class TicketMasterPlusDAO {
     
     
     private String ip = "localhost";
@@ -44,7 +45,7 @@ public class ticketMasterPlusDAO {
 
         String sql = "SELECT * FROM Event WHERE startdate >= ?";
 
-try (DataBaseConnectionManager db = new DataBaseConnectionManager(1, this.nameDB, this.userDB, this.pswDB)) {
+        try (DataBaseConnectionManager db = new DataBaseConnectionManager(1, this.nameDB, this.userDB, this.pswDB)) {
             db.connectDataBase();
 
             try (PreparedStatement stmt = db.getConnection().prepareStatement(sql)) {
@@ -77,7 +78,7 @@ try (DataBaseConnectionManager db = new DataBaseConnectionManager(1, this.nameDB
                 }
             }
         } catch (DataBaseException ex) {
-            Logger.getLogger(ticketMasterPlusDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TicketMasterPlusDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return events;
@@ -152,7 +153,7 @@ try (DataBaseConnectionManager db = new DataBaseConnectionManager(1, this.nameDB
         this.createEventReservation(generatedId, basePrice);
 
     } catch (DataBaseException | DateTimeParseException | SQLException ex) {
-        Logger.getLogger(ticketMasterPlusDAO.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(TicketMasterPlusDAO.class.getName()).log(Level.SEVERE, null, ex);
     }
     }
 
@@ -237,8 +238,31 @@ try (DataBaseConnectionManager db = new DataBaseConnectionManager(1, this.nameDB
             System.out.println(ex.toString());
         }
         
-        
         return seats;
+    }
+    
+    public ArrayList<SeatReservation> getAllSeatReservation(int idE){
+        ArrayList<SeatReservation> seatR = new ArrayList<>();
+        String sql = "SELECT * FROM seatreservation WHERE idevent = '"+idE+"' ORDER BY idseat";
+        Conexao con = new Conexao("PostgreSql", this.ip, this.port, this.nameDB, this.userDB, this.pswDB);
+        try {
+            con.conect();
+            ResultSet rs = con.query(sql);
+            while (rs.next()){
+                int idSeatReservation = rs.getInt("idseatreservation");
+                int idSeat = rs.getInt("idseat");
+                int idEvent = rs.getInt("idevent");
+                int idPerson = rs.getInt("idperson");
+                String status = rs.getString("status");
+                double price = rs.getDouble("price");
+                SeatReservation sr = new SeatReservation(idSeatReservation, idSeat, idEvent, idPerson, status, price);
+                seatR.add(sr);
+            } 
+        } catch (SQLException ex){
+            System.out.println(ex.toString());
+        }
+        
+        return seatR;
     }
 
 }

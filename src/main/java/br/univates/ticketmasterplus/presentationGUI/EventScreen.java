@@ -5,7 +5,7 @@
 package br.univates.ticketmasterplus.presentationGUI;
 
 import br.univates.ticketmasterplus.business.Event;
-import br.univates.ticketmasterplus.businessDAO.ticketMasterPlusDAO;
+import br.univates.ticketmasterplus.businessDAO.TicketMasterPlusDAO;
 import br.univates.ticketmasterplus.util.InvalidEntryException;
 import java.awt.Color;
 import javax.management.StringValueExp;
@@ -27,6 +27,7 @@ public class EventScreen extends javax.swing.JFrame {
     
     public EventScreen(Event evento, int CrudCode) {
         initComponents();
+        this.btnCreate.setBackground(Color.red);
         this.CrudCode = CrudCode;
         if (CrudCode == 1) {
             setEvent(evento);
@@ -96,7 +97,7 @@ public class EventScreen extends javax.swing.JFrame {
         TextEventDescription = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));
 
@@ -119,6 +120,7 @@ public class EventScreen extends javax.swing.JFrame {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
+        btnCreate.setBackground(new java.awt.Color(0, 153, 0));
         btnCreate.setText("Create");
         btnCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,6 +128,7 @@ public class EventScreen extends javax.swing.JFrame {
             }
         });
 
+        btnBack.setBackground(new java.awt.Color(255, 204, 153));
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -308,12 +311,12 @@ public class EventScreen extends javax.swing.JFrame {
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
 
         if (this.CrudCode == CREATE) {
-            ticketMasterPlusDAO dao = new ticketMasterPlusDAO();
+            TicketMasterPlusDAO dao = new TicketMasterPlusDAO();
             dao.createNewEvent(this.event);
             dispose();
         }
         if (this.CrudCode == UPDATE) {
-            ticketMasterPlusDAO dao = new ticketMasterPlusDAO();
+            TicketMasterPlusDAO dao = new TicketMasterPlusDAO();
             dao.editEvent(this.event);
             dispose();
         }
