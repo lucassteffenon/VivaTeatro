@@ -4,8 +4,12 @@ import br.univates.ticketmasterplus.business.Event;
 import br.univates.ticketmasterplus.business.SeatReservation;
 import br.univates.ticketmasterplus.businessDAO.TicketMasterPlusDAO;
 import java.awt.Color;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.Timer;
 
 
 public class BuyTickets extends javax.swing.JFrame {
@@ -15,13 +19,11 @@ public class BuyTickets extends javax.swing.JFrame {
     public BuyTickets(Event eventoRecebido) {
         initComponents();
         this.evento = eventoRecebido;
-        A1.setBackground(Color.red);
-        //setSeats();
+        setSeats();
     }
 
     private void setSeats(){
         TicketMasterPlusDAO dao = new TicketMasterPlusDAO();
-        ArrayList<SeatReservation> sr = new ArrayList<>(dao.getAllSeatReservation(this.evento.getIdEvent()));
         
         // Criar um ArrayList para armazenar os botões
         ArrayList<JButton> botoes = new ArrayList<>();
@@ -89,22 +91,28 @@ public class BuyTickets extends javax.swing.JFrame {
         botoes.add(J60);
 
         
-        // Percorrer a lista e alterar a cor de fundo dos botões
-        for (int i = 0; i < botoes.size() && i < sr.size(); i++) {
-            JButton botao = botoes.get(i);
-            String status = sr.get(i).getStatus();
+        // Configuração do Timer para atualizar a lista a cada 10 segundos
+            Timer timer = new Timer(2000, e -> {
+                
+                    ArrayList<SeatReservation> sr = new ArrayList<>(dao.getAllSeatReservation(this.evento.getIdEvent()));
+                
+                    // Percorrer a lista e alterar a cor de fundo dos botões
+                    for (int i = 0; i < botoes.size() && i < sr.size(); i++) {
+                        JButton botao = botoes.get(i);
+                        String status = sr.get(i).getStatus();
 
-            if (status.equals("disponivel")) {
-                botao.setBackground(Color.GREEN);
-            } else if (status.equals("reservado")) {
-                botao.setBackground(Color.YELLOW);
-            } else if (status.equals("vendido")) {
-                botao.setBackground(Color.RED);
-            }
-            
-            // Atualizar a interface gráfica
-            botao.repaint();
-        }
+                        if (status.equals("disponivel")) {
+                            botao.setBackground(Color.GREEN);
+                        } else if (status.equals("reservado")) {
+                            botao.setBackground(Color.YELLOW);
+                        } else if (status.equals("vendido")) {
+                            botao.setBackground(Color.RED);
+                        }
+                    }
+                
+            });
+            timer.start();
+        
     }
     
     
@@ -222,7 +230,7 @@ public class BuyTickets extends javax.swing.JFrame {
 
         jLabel3.setText("B");
 
-        A1.setBackground(new java.awt.Color(255, 255, 255));
+        A1.setBackground(new java.awt.Color(153, 153, 153));
         A1.setForeground(new java.awt.Color(255, 255, 255));
         A1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -581,7 +589,14 @@ public class BuyTickets extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void A1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_A1ActionPerformed
-        // TODO add your handling code here:
+        TicketMasterPlusDAO dao = new TicketMasterPlusDAO();
+        String status = dao.getSeatReservationStatus(this.evento.getIdEvent(), 1);
+        if (status == "disponivel"){
+            dao.reserveTicket(1, this.evento.getIdEvent(), "reservado");
+        } else if (status == "reservado"){
+            dao.reserveTicket(1, this.evento.getIdEvent(), "disponivel");
+        }
+        
     }//GEN-LAST:event_A1ActionPerformed
 
 

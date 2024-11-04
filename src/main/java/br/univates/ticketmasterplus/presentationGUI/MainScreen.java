@@ -5,6 +5,7 @@
 package br.univates.ticketmasterplus.presentationGUI;
 
 import br.univates.ticketmasterplus.business.Event;
+import br.univates.ticketmasterplus.business.User;
 import br.univates.ticketmasterplus.businessDAO.TicketMasterPlusDAO;
 import java.awt.Color;
 import java.sql.SQLException;
@@ -23,6 +24,8 @@ import javax.swing.Timer;
 public class MainScreen extends javax.swing.JFrame {
     
     Event evento = new Event();
+    
+    private User user;
 
     public void refreshEventsList() throws SQLException{
         TicketMasterPlusDAO dao = new TicketMasterPlusDAO();
@@ -39,8 +42,9 @@ public class MainScreen extends javax.swing.JFrame {
     
     
     
-    public MainScreen(){
+    public MainScreen(User user){
         try {
+            this.user = user;
             initComponents();
             this.refreshEventsList();
             
@@ -195,7 +199,7 @@ public class MainScreen extends javax.swing.JFrame {
             bt.setLocationRelativeTo(null);
             bt.setVisible(true);  
         } else {
-            JOptionPane.showMessageDialog(null, "Nenhum evento foi selecionado.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No events selected.", "Warning", JOptionPane.WARNING_MESSAGE);
         }
         
         
@@ -244,41 +248,6 @@ public class MainScreen extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnEditEventActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainScreen().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuyTickets;

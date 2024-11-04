@@ -7,6 +7,7 @@ package br.univates.ticketmasterplus.businessDAO;
 import br.univates.ticketmasterplus.business.Event;
 import br.univates.ticketmasterplus.business.Seat;
 import br.univates.ticketmasterplus.business.SeatReservation;
+import br.univates.ticketmasterplus.business.User;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,14 +30,22 @@ import java.util.logging.Logger;
 public class TicketMasterPlusDAO {
     
     
+    //private String ip = "192.168.7.112";
     private String ip = "localhost";
-    private String port = "5433";
+    private String port = "5432";
     private String nameDB = "facil";
     private String userDB = "postgres";
     private String pswDB = "postgres";
 
     public void buyTicket(int idSeat, int idEvent, int idPerson, String status, int valor) {
 
+    }
+    
+    public void reserveTicket(int idSeat, int idEvent, String status){
+        Conexao con = new Conexao("PostgreSql", this.ip, this.port, this.nameDB, this.userDB, this.pswDB);
+        String sql = "UPDATE seatreservation SET status = '"+ status + "' WHERE idevent = "+idEvent+" AND idseat = "+idSeat+"";
+        con.conect();
+        con.queryUpdate(sql);
     }
 
     public ArrayList<Event> getEventsList() throws SQLException {
@@ -45,10 +54,11 @@ public class TicketMasterPlusDAO {
 
         String sql = "SELECT * FROM Event WHERE startdate >= ?";
 
-        try (DataBaseConnectionManager db = new DataBaseConnectionManager(1, this.nameDB, this.userDB, this.pswDB)) {
-            db.connectDataBase();
+        try {
+            Conexao con = new Conexao("PostgreSql", this.ip, this.port, this.nameDB, this.userDB, this.pswDB);
+            con.conect();
 
-            try (PreparedStatement stmt = db.getConnection().prepareStatement(sql)) {
+            try (PreparedStatement stmt = con.getC().prepareStatement(sql)) {
                 stmt.setDate(1, java.sql.Date.valueOf(dataExecucao));
 
                 ResultSet rs = stmt.executeQuery();
@@ -77,8 +87,8 @@ public class TicketMasterPlusDAO {
                     events.add(evento);
                 }
             }
-        } catch (DataBaseException ex) {
-            Logger.getLogger(TicketMasterPlusDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
         }
 
         return events;
@@ -123,8 +133,9 @@ public class TicketMasterPlusDAO {
 
     public void createNewEvent(Event evento) {
         int generatedId = -1;
-        try (DataBaseConnectionManager db = new DataBaseConnectionManager(1, "facil", "postgres", "postgres")) {
-        db.connectDataBase();
+        try {
+        Conexao con = new Conexao("PostgreSql", this.ip, this.port, this.nameDB, this.userDB, this.pswDB);
+        con.conect();
 
         String eventDescription = evento.getDescription();
         String eventName = evento.getName();
@@ -138,7 +149,7 @@ public class TicketMasterPlusDAO {
         String values = "('" + eventDescription + "', '" + eventName + "', '" + startDate + "', '" + startHour + "', '" + endDate + "', '" + endHour + "', " + numberSeats + ", " + basePrice + ")";
         String sql = "INSERT INTO Event (eventDescription, eventName, startDate, startHour, endDate, endHour, numberSeats, basePrice) VALUES " + values;
 
-        try (Statement stmt = db.getConnection().createStatement()) {
+        try (Statement stmt = con.getC().createStatement()) {
             int affectedRows = stmt.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
 
             if (affectedRows > 0) {
@@ -152,9 +163,9 @@ public class TicketMasterPlusDAO {
         
         this.createEventReservation(generatedId, basePrice);
 
-    } catch (DataBaseException | DateTimeParseException | SQLException ex) {
-        Logger.getLogger(TicketMasterPlusDAO.class.getName()).log(Level.SEVERE, null, ex);
-    }
+    } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        }
     }
 
     public void editEvent(Event evento) {
@@ -171,7 +182,7 @@ public class TicketMasterPlusDAO {
         
         String sql = "UPDATE event SET eventdescription = '"+ eventDescription + "', eventname = '"+eventName+"', startdate = '"+startDate+"', starthour = '"+startHour+"', enddate = '"+endDate+"', endhour = '"+endHour+"', numberseats = " + numberSeats + ", baseprice = "+ basePrice + " WHERE idevent = '"+idEvent+"'";
        
-        Conexao con = new Conexao("PostgreSql", "localhost", "5433", "facil", "postgres", "postgres");
+        Conexao con = new Conexao("PostgreSql", this.ip, this.port, this.nameDB, this.userDB, this.pswDB);
         con.conect();
         con.queryUpdate(sql);
         
@@ -263,6 +274,49 @@ public class TicketMasterPlusDAO {
         }
         
         return seatR;
+    }
+    
+    public String getSeatReservationStatus(int idE, int Pos){
+        String status = "vazio";
+        String sql = "SELECT status FROM seatreservation WHERE idseat = "+Pos+" AND idevent = "+idE+"";
+        Conexao con = new Conexao("PostgreSql", this.ip, this.port, this.nameDB, this.userDB, this.pswDB);
+        try {
+            con.conect();
+            ResultSet rs = con.query(sql);
+            if (rs.next()) {
+                status = rs.getString("status");
+            }
+        } catch (SQLException ex){
+            System.out.println(ex.toString());
+        }
+        
+        return status;
+    }
+    
+    public User getUser(String user, String password){
+        String sql = "SELECT * FROM users WHERE name = '"+user+"' AND password = '"+password+"'";
+        Conexao con = new Conexao("PostgreSql", this.ip, this.port, this.nameDB, this.userDB, this.pswDB);
+        try{
+            con.conect();
+            ResultSet rs = con.query(sql);
+            if(rs.next()){
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String email = rs.getString("email");
+                String passwordU = rs.getString("password");
+                String phone = rs.getString("phone");
+                boolean active = rs.getBoolean("active");
+                if (active) {
+                    User usuario = new User(id, name, email, password, phone);
+                    return usuario;
+                }
+            } else {
+                return null;
+            }
+        } catch (SQLException ex){
+            System.out.println(ex.toString());
+        }
+        return null;
     }
 
 }
