@@ -264,9 +264,10 @@ public class TicketMasterPlusDAO {
                 int idSeat = rs.getInt("idseat");
                 int idEvent = rs.getInt("idevent");
                 int idPerson = rs.getInt("idperson");
+                int idUser = rs.getInt("iduser");
                 String status = rs.getString("status");
                 double price = rs.getDouble("price");
-                SeatReservation sr = new SeatReservation(idSeatReservation, idSeat, idEvent, idPerson, status, price);
+                SeatReservation sr = new SeatReservation(idSeatReservation, idSeat, idEvent, idPerson, idUser, status, price);
                 seatR.add(sr);
             } 
         } catch (SQLException ex){
@@ -277,7 +278,7 @@ public class TicketMasterPlusDAO {
     }
     
     public SeatReservation getSeatReservationStatus(int idE, int Pos){
-        String status = "vazio";
+        SeatReservation sr = null;
         String sql = "SELECT status FROM seatreservation WHERE idseat = "+Pos+" AND idevent = "+idE+"";
         Conexao con = new Conexao("PostgreSql", this.ip, this.port, this.nameDB, this.userDB, this.pswDB);
         try {
@@ -289,15 +290,15 @@ public class TicketMasterPlusDAO {
                 int idEvent = rs.getInt("idevent");
                 int idPerson = rs.getInt("idperson");
                 int idUser = rs.getInt("iduser");
-                status = rs.getString("status");
+                String status = rs.getString("status");
                 double price = rs.getDouble("price");
-                SeatReservation sr = new SeatReservation(idSeatReservation, idSeat, idEvent, idPerson, idUser, status, price);
+                sr = new SeatReservation(idSeatReservation, idSeat, idEvent, idPerson, idUser, status, price);
             }
         } catch (SQLException ex){
             System.out.println(ex.toString());
         }
         
-        return status;
+        return sr;
     }
     
     public User getUser(String user, String password){

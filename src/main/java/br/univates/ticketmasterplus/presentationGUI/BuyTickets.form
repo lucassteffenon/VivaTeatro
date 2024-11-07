@@ -454,14 +454,29 @@
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="A2">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="A2ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="A3">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="A3ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="A4">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="A4ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="A5">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="A5ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="A6">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="A6ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="B7">
       <Properties>
@@ -469,18 +484,39 @@
           <Color blue="0" green="ff" red="0" type="rgb"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="B7ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="B12">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="B12ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="B11">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="B11ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="B10">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="B10ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="B9">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="B9ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="B8">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="B8ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="C13">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="C13ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="C14">
     </Component>

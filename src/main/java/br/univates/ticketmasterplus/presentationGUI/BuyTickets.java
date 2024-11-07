@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 
@@ -241,7 +242,78 @@ public class BuyTickets extends javax.swing.JFrame {
             }
         });
 
+        A2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                A2ActionPerformed(evt);
+            }
+        });
+
+        A3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                A3ActionPerformed(evt);
+            }
+        });
+
+        A4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                A4ActionPerformed(evt);
+            }
+        });
+
+        A5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                A5ActionPerformed(evt);
+            }
+        });
+
+        A6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                A6ActionPerformed(evt);
+            }
+        });
+
         B7.setForeground(new java.awt.Color(0, 255, 0));
+        B7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                B7ActionPerformed(evt);
+            }
+        });
+
+        B12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                B12ActionPerformed(evt);
+            }
+        });
+
+        B11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                B11ActionPerformed(evt);
+            }
+        });
+
+        B10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                B10ActionPerformed(evt);
+            }
+        });
+
+        B9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                B9ActionPerformed(evt);
+            }
+        });
+
+        B8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                B8ActionPerformed(evt);
+            }
+        });
+
+        C13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                C13ActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("C");
 
@@ -593,14 +665,223 @@ public class BuyTickets extends javax.swing.JFrame {
 
     private void A1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_A1ActionPerformed
         TicketMasterPlusDAO dao = new TicketMasterPlusDAO();
-        String status = dao.getSeatReservationStatus(this.evento.getIdEvent(), 1);
+        SeatReservation sr = dao.getSeatReservationStatus(this.evento.getIdEvent(), 1);
+        String status = sr.getStatus();
+        int idUserSeat = sr.getIdUser();
         if (status == "disponivel"){
             dao.reserveTicket(1, this.evento.getIdEvent(), "reservado", this.user.getId());
         } else if (status == "reservado"){
-            dao.reserveTicket(1, this.evento.getIdEvent(), "disponivel", this.user.getId());
+            if (idUserSeat == this.user.getId()) {
+                dao.reserveTicket(1, this.evento.getIdEvent(), "disponivel", this.user.getId());
+            } else {
+                JOptionPane.showMessageDialog(null, "Another user have already reserved this seat.", "Warning", JOptionPane.WARNING_MESSAGE);
+            } 
+        }
+    }//GEN-LAST:event_A1ActionPerformed
+
+    private void A2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_A2ActionPerformed
+        TicketMasterPlusDAO dao = new TicketMasterPlusDAO();
+        SeatReservation sr = dao.getSeatReservationStatus(this.evento.getIdEvent(), 2);
+        String status = sr.getStatus();
+        int idUserSeat = sr.getIdUser();
+        if (status == "disponivel"){
+            dao.reserveTicket(2, this.evento.getIdEvent(), "reservado", this.user.getId());
+        } else if (status == "reservado"){
+            if (idUserSeat == this.user.getId()) {
+                dao.reserveTicket(2, this.evento.getIdEvent(), "disponivel", this.user.getId());
+            } else {
+                JOptionPane.showMessageDialog(null, "Another user have already reserved this seat.", "Warning", JOptionPane.WARNING_MESSAGE);
+            } 
         }
         
-    }//GEN-LAST:event_A1ActionPerformed
+        
+    }//GEN-LAST:event_A2ActionPerformed
+
+    private void A3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_A3ActionPerformed
+        TicketMasterPlusDAO dao = new TicketMasterPlusDAO();
+        SeatReservation sr = dao.getSeatReservationStatus(this.evento.getIdEvent(), 3);
+        String status = sr.getStatus();
+        int idUserSeat = sr.getIdUser();
+        if (status == "disponivel"){
+            dao.reserveTicket(3, this.evento.getIdEvent(), "reservado", this.user.getId());
+        } else if (status == "reservado"){
+            if (idUserSeat == this.user.getId()) {
+                dao.reserveTicket(3, this.evento.getIdEvent(), "disponivel", this.user.getId());
+            } else {
+                JOptionPane.showMessageDialog(null, "Another user have already reserved this seat.", "Warning", JOptionPane.WARNING_MESSAGE);
+            } 
+        }
+    }//GEN-LAST:event_A3ActionPerformed
+
+    private void A4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_A4ActionPerformed
+        TicketMasterPlusDAO dao = new TicketMasterPlusDAO();
+        SeatReservation sr = dao.getSeatReservationStatus(this.evento.getIdEvent(), 4);
+        String status = sr.getStatus();
+        int idUserSeat = sr.getIdUser();
+        if (status == "disponivel"){
+            dao.reserveTicket(4, this.evento.getIdEvent(), "reservado", this.user.getId());
+        } else if (status == "reservado"){
+            if (idUserSeat == this.user.getId()) {
+                dao.reserveTicket(4, this.evento.getIdEvent(), "disponivel", this.user.getId());
+            } else {
+                JOptionPane.showMessageDialog(null, "Another user have already reserved this seat.", "Warning", JOptionPane.WARNING_MESSAGE);
+            } 
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_A4ActionPerformed
+
+    private void A5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_A5ActionPerformed
+        TicketMasterPlusDAO dao = new TicketMasterPlusDAO();
+        SeatReservation sr = dao.getSeatReservationStatus(this.evento.getIdEvent(), 5);
+        String status = sr.getStatus();
+        int idUserSeat = sr.getIdUser();
+        if (status == "disponivel"){
+            dao.reserveTicket(5, this.evento.getIdEvent(), "reservado", this.user.getId());
+        } else if (status == "reservado"){
+            if (idUserSeat == this.user.getId()) {
+                dao.reserveTicket(5, this.evento.getIdEvent(), "disponivel", this.user.getId());
+            } else {
+                JOptionPane.showMessageDialog(null, "Another user have already reserved this seat.", "Warning", JOptionPane.WARNING_MESSAGE);
+            } 
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_A5ActionPerformed
+
+    private void A6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_A6ActionPerformed
+        TicketMasterPlusDAO dao = new TicketMasterPlusDAO();
+        SeatReservation sr = dao.getSeatReservationStatus(this.evento.getIdEvent(), 6);
+        String status = sr.getStatus();
+        int idUserSeat = sr.getIdUser();
+        if (status == "disponivel"){
+            dao.reserveTicket(6, this.evento.getIdEvent(), "reservado", this.user.getId());
+        } else if (status == "reservado"){
+            if (idUserSeat == this.user.getId()) {
+                dao.reserveTicket(6, this.evento.getIdEvent(), "disponivel", this.user.getId());
+            } else {
+                JOptionPane.showMessageDialog(null, "Another user have already reserved this seat.", "Warning", JOptionPane.WARNING_MESSAGE);
+            } 
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_A6ActionPerformed
+
+    private void B7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B7ActionPerformed
+        TicketMasterPlusDAO dao = new TicketMasterPlusDAO();
+        SeatReservation sr = dao.getSeatReservationStatus(this.evento.getIdEvent(), 7);
+        String status = sr.getStatus();
+        int idUserSeat = sr.getIdUser();
+        if (status == "disponivel"){
+            dao.reserveTicket(7, this.evento.getIdEvent(), "reservado", this.user.getId());
+        } else if (status == "reservado"){
+            if (idUserSeat == this.user.getId()) {
+                dao.reserveTicket(7, this.evento.getIdEvent(), "disponivel", this.user.getId());
+            } else {
+                JOptionPane.showMessageDialog(null, "Another user have already reserved this seat.", "Warning", JOptionPane.WARNING_MESSAGE);
+            } 
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_B7ActionPerformed
+
+    private void B8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B8ActionPerformed
+        TicketMasterPlusDAO dao = new TicketMasterPlusDAO();
+        SeatReservation sr = dao.getSeatReservationStatus(this.evento.getIdEvent(), 8);
+        String status = sr.getStatus();
+        int idUserSeat = sr.getIdUser();
+        if (status == "disponivel"){
+            dao.reserveTicket(8, this.evento.getIdEvent(), "reservado", this.user.getId());
+        } else if (status == "reservado"){
+            if (idUserSeat == this.user.getId()) {
+                dao.reserveTicket(8, this.evento.getIdEvent(), "disponivel", this.user.getId());
+            } else {
+                JOptionPane.showMessageDialog(null, "Another user have already reserved this seat.", "Warning", JOptionPane.WARNING_MESSAGE);
+            } 
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_B8ActionPerformed
+
+    private void B9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B9ActionPerformed
+        TicketMasterPlusDAO dao = new TicketMasterPlusDAO();
+        SeatReservation sr = dao.getSeatReservationStatus(this.evento.getIdEvent(), 9);
+        String status = sr.getStatus();
+        int idUserSeat = sr.getIdUser();
+        if (status == "disponivel"){
+            dao.reserveTicket(9, this.evento.getIdEvent(), "reservado", this.user.getId());
+        } else if (status == "reservado"){
+            if (idUserSeat == this.user.getId()) {
+                dao.reserveTicket(9, this.evento.getIdEvent(), "disponivel", this.user.getId());
+            } else {
+                JOptionPane.showMessageDialog(null, "Another user have already reserved this seat.", "Warning", JOptionPane.WARNING_MESSAGE);
+            } 
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_B9ActionPerformed
+
+    private void B10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B10ActionPerformed
+        TicketMasterPlusDAO dao = new TicketMasterPlusDAO();
+        SeatReservation sr = dao.getSeatReservationStatus(this.evento.getIdEvent(), 10);
+        String status = sr.getStatus();
+        int idUserSeat = sr.getIdUser();
+        if (status == "disponivel"){
+            dao.reserveTicket(10, this.evento.getIdEvent(), "reservado", this.user.getId());
+        } else if (status == "reservado"){
+            if (idUserSeat == this.user.getId()) {
+                dao.reserveTicket(10, this.evento.getIdEvent(), "disponivel", this.user.getId());
+            } else {
+                JOptionPane.showMessageDialog(null, "Another user have already reserved this seat.", "Warning", JOptionPane.WARNING_MESSAGE);
+            } 
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_B10ActionPerformed
+
+    private void B11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B11ActionPerformed
+        TicketMasterPlusDAO dao = new TicketMasterPlusDAO();
+        SeatReservation sr = dao.getSeatReservationStatus(this.evento.getIdEvent(), 11);
+        String status = sr.getStatus();
+        int idUserSeat = sr.getIdUser();
+        if (status == "disponivel"){
+            dao.reserveTicket(11, this.evento.getIdEvent(), "reservado", this.user.getId());
+        } else if (status == "reservado"){
+            if (idUserSeat == this.user.getId()) {
+                dao.reserveTicket(11, this.evento.getIdEvent(), "disponivel", this.user.getId());
+            } else {
+                JOptionPane.showMessageDialog(null, "Another user have already reserved this seat.", "Warning", JOptionPane.WARNING_MESSAGE);
+            } 
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_B11ActionPerformed
+
+    private void B12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B12ActionPerformed
+        TicketMasterPlusDAO dao = new TicketMasterPlusDAO();
+        SeatReservation sr = dao.getSeatReservationStatus(this.evento.getIdEvent(), 12);
+        String status = sr.getStatus();
+        int idUserSeat = sr.getIdUser();
+        if (status == "disponivel"){
+            dao.reserveTicket(12, this.evento.getIdEvent(), "reservado", this.user.getId());
+        } else if (status == "reservado"){
+            if (idUserSeat == this.user.getId()) {
+                dao.reserveTicket(12, this.evento.getIdEvent(), "disponivel", this.user.getId());
+            } else {
+                JOptionPane.showMessageDialog(null, "Another user have already reserved this seat.", "Warning", JOptionPane.WARNING_MESSAGE);
+            } 
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_B12ActionPerformed
+
+    private void C13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_C13ActionPerformed
+        TicketMasterPlusDAO dao = new TicketMasterPlusDAO();
+        SeatReservation sr = dao.getSeatReservationStatus(this.evento.getIdEvent(), 13);
+        String status = sr.getStatus();
+        int idUserSeat = sr.getIdUser();
+        if (status == "disponivel"){
+            dao.reserveTicket(13, this.evento.getIdEvent(), "reservado", this.user.getId());
+        } else if (status == "reservado"){
+            if (idUserSeat == this.user.getId()) {
+                dao.reserveTicket(13, this.evento.getIdEvent(), "disponivel", this.user.getId());
+            } else {
+                JOptionPane.showMessageDialog(null, "Another user have already reserved this seat.", "Warning", JOptionPane.WARNING_MESSAGE);
+            } 
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_C13ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
