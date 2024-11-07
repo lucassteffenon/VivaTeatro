@@ -5,15 +5,17 @@
 package br.univates.ticketmasterplus.presentationGUI;
 
 import br.univates.ticketmasterplus.business.Event;
+import br.univates.ticketmasterplus.business.Person;
 import br.univates.ticketmasterplus.business.Seat;
 import br.univates.ticketmasterplus.business.SeatReservation;
 import br.univates.ticketmasterplus.business.User;
+import br.univates.ticketmasterplus.businessDAO.VivaTeatroDAO;
 
 public class BuyTicketClient extends javax.swing.JFrame {
     
     private Event evento;
     private SeatReservation seatReservation;
-    private User user;
+    private Person person;
     private Seat seat;
     
     public BuyTicketClient(SeatReservation seatR, Event evento, Seat seat) {
@@ -187,6 +189,14 @@ public class BuyTicketClient extends javax.swing.JFrame {
 
     private void jDocFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jDocFocusLost
         String doc = jDoc.getText();
+        VivaTeatroDAO dao = new VivaTeatroDAO();
+        this.person = dao.getPerson(doc);
+        if (this.person != null) {
+            this.labelDocType.setText(this.person.getDocType());
+            this.jName.setText(this.person.getNome());
+            this.jEmail.setText(this.person.getEmail());
+            this.jPhone.setText(this.person.getFone());
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_jDocFocusLost
 

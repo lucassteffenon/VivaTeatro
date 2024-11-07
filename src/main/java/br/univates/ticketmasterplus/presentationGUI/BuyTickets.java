@@ -1681,6 +1681,8 @@ public class BuyTickets extends javax.swing.JFrame {
             for (SeatReservation seat : seats) {
                 s = dao.getSeat(seat.getIdSeat());
                 BuyTicketClient btc = new BuyTicketClient(seat, this.evento, s);
+                btc.setLocationRelativeTo(null);
+                btc.setVisible(true);
             }
         }
         
