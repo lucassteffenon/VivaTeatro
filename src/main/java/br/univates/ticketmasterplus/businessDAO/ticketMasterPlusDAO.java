@@ -32,7 +32,7 @@ public class TicketMasterPlusDAO {
     
     //private String ip = "192.168.7.112";
     private String ip = "localhost";
-    private String port = "5433";
+    private String port = "5432";
     private String nameDB = "facil";
     private String userDB = "postgres";
     private String pswDB = "postgres";
@@ -279,7 +279,7 @@ public class TicketMasterPlusDAO {
     
     public SeatReservation getSeatReservationStatus(int idE, int Pos){
         SeatReservation sr = null;
-        String sql = "SELECT status FROM seatreservation WHERE idseat = "+Pos+" AND idevent = "+idE+"";
+        String sql = "SELECT * FROM seatreservation WHERE idseat = "+Pos+" AND idevent = "+idE+"";
         Conexao con = new Conexao("PostgreSql", this.ip, this.port, this.nameDB, this.userDB, this.pswDB);
         try {
             con.conect();
