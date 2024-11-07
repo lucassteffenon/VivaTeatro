@@ -6,7 +6,7 @@ package br.univates.ticketmasterplus.presentationGUI;
 
 import br.univates.ticketmasterplus.business.Event;
 import br.univates.ticketmasterplus.business.User;
-import br.univates.ticketmasterplus.businessDAO.TicketMasterPlusDAO;
+import br.univates.ticketmasterplus.businessDAO.VivaTeatroDAO;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class MainScreen extends javax.swing.JFrame {
     private User user;
 
     public void refreshEventsList() throws SQLException{
-        TicketMasterPlusDAO dao = new TicketMasterPlusDAO();
+        VivaTeatroDAO dao = new VivaTeatroDAO();
         ArrayList<Event> listaEventosSQL = dao.getEventsList();
         
         this.listaEventos.removeAll();
@@ -193,7 +193,7 @@ public class MainScreen extends javax.swing.JFrame {
     private void btnBuyTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuyTicketsActionPerformed
         
         if (this.evento.getName() != null) {
-            TicketMasterPlusDAO dao = new TicketMasterPlusDAO();
+            VivaTeatroDAO dao = new VivaTeatroDAO();
             this.evento = dao.getEvento(this.evento.getName(), this.evento.getStartDate(), this.evento.getStartHour());
             BuyTickets bt = new BuyTickets(this.evento, this.user);
             bt.setLocationRelativeTo(null);
@@ -236,7 +236,7 @@ public class MainScreen extends javax.swing.JFrame {
     private void btnEditEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditEventActionPerformed
        
        if (this.evento.getName() != null){
-            TicketMasterPlusDAO dao = new TicketMasterPlusDAO();
+            VivaTeatroDAO dao = new VivaTeatroDAO();
             this.evento = dao.getEvento(this.evento.getName(), this.evento.getStartDate(), this.evento.getStartHour());
             EventScreen es = new EventScreen(this.evento, 1);
             es.setLocationRelativeTo(null);

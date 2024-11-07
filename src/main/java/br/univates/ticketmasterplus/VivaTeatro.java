@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  *
  * @author lucassteffenon
  */
-public class TicketMasterPlus {
+public class VivaTeatro {
 
     public static void main(String[] args) {
         LoginScreen ls;

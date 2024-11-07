@@ -5,7 +5,7 @@
 package br.univates.ticketmasterplus.presentationGUI;
 
 import br.univates.ticketmasterplus.business.Event;
-import br.univates.ticketmasterplus.businessDAO.TicketMasterPlusDAO;
+import br.univates.ticketmasterplus.businessDAO.VivaTeatroDAO;
 import br.univates.ticketmasterplus.util.InvalidEntryException;
 import java.awt.Color;
 import javax.management.StringValueExp;
@@ -311,12 +311,12 @@ public class EventScreen extends javax.swing.JFrame {
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
 
         if (this.CrudCode == CREATE) {
-            TicketMasterPlusDAO dao = new TicketMasterPlusDAO();
+            VivaTeatroDAO dao = new VivaTeatroDAO();
             dao.createNewEvent(this.event);
             dispose();
         }
         if (this.CrudCode == UPDATE) {
-            TicketMasterPlusDAO dao = new TicketMasterPlusDAO();
+            VivaTeatroDAO dao = new VivaTeatroDAO();
             dao.editEvent(this.event);
             dispose();
         }

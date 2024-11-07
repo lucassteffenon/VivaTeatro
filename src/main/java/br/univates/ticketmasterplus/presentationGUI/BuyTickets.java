@@ -1,9 +1,10 @@
 package br.univates.ticketmasterplus.presentationGUI;
 
 import br.univates.ticketmasterplus.business.Event;
+import br.univates.ticketmasterplus.business.Seat;
 import br.univates.ticketmasterplus.business.SeatReservation;
 import br.univates.ticketmasterplus.business.User;
-import br.univates.ticketmasterplus.businessDAO.TicketMasterPlusDAO;
+import br.univates.ticketmasterplus.businessDAO.VivaTeatroDAO;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class BuyTickets extends javax.swing.JFrame {
     }
 
     private void setSeats(){
-        TicketMasterPlusDAO dao = new TicketMasterPlusDAO();
+        VivaTeatroDAO dao = new VivaTeatroDAO();
         
         // Criar um ArrayList para armazenar os botões
         ArrayList<JButton> botoes = new ArrayList<>();
@@ -120,7 +121,7 @@ public class BuyTickets extends javax.swing.JFrame {
     }
     
     private void reserve(int idS){
-        TicketMasterPlusDAO dao = new TicketMasterPlusDAO();
+        VivaTeatroDAO dao = new VivaTeatroDAO();
         SeatReservation sr = dao.getSeatReservationStatus(this.evento.getIdEvent(), idS);
         String status = sr.getStatus();
         int idUserSeat = sr.getIdUser();
@@ -218,7 +219,7 @@ public class BuyTickets extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnBuy = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -641,7 +642,12 @@ public class BuyTickets extends javax.swing.JFrame {
 
         jLabel20.setText("6");
 
-        jButton1.setText("Buy");
+        btnBuy.setText("Buy");
+        btnBuy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuyActionPerformed(evt);
+            }
+        });
 
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -778,7 +784,7 @@ public class BuyTickets extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addComponent(btnBack)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btnBuy)
                 .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
@@ -948,7 +954,7 @@ public class BuyTickets extends javax.swing.JFrame {
                                 .addComponent(G42, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnBuy)
                     .addComponent(btnBack))
                 .addGap(15, 15, 15))
         );
@@ -1666,6 +1672,20 @@ public class BuyTickets extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_J60ActionPerformed
 
+    private void btnBuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuyActionPerformed
+        ArrayList<SeatReservation> seats = new ArrayList<>();
+        Seat s = new Seat();
+        VivaTeatroDAO dao = new VivaTeatroDAO();
+        seats = dao.getSeatsReserToBuy(this.evento.getIdEvent(), this.user.getId());
+        if(seats != null){
+            for (SeatReservation seat : seats) {
+                s = dao.getSeat(seat.getIdSeat());
+                BuyTicketClient btc = new BuyTicketClient(seat, this.evento, s);
+            }
+        }
+        
+    }//GEN-LAST:event_btnBuyActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton A1;
@@ -1729,7 +1749,7 @@ public class BuyTickets extends javax.swing.JFrame {
     private javax.swing.JButton J59;
     private javax.swing.JButton J60;
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnBuy;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

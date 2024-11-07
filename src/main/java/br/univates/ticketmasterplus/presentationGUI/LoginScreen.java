@@ -5,7 +5,7 @@
 package br.univates.ticketmasterplus.presentationGUI;
 
 import br.univates.ticketmasterplus.business.User;
-import br.univates.ticketmasterplus.businessDAO.TicketMasterPlusDAO;
+import br.univates.ticketmasterplus.businessDAO.VivaTeatroDAO;
 import javax.swing.JOptionPane;
 
 /**
@@ -102,7 +102,7 @@ public class LoginScreen extends javax.swing.JFrame {
         String user = TFuser.getText();
         String pswd = TFpswd.getText();
         
-        TicketMasterPlusDAO dao = new TicketMasterPlusDAO();
+        VivaTeatroDAO dao = new VivaTeatroDAO();
         User usuario = dao.getUser(user, pswd);
         if (usuario != null) {
             dispose();
