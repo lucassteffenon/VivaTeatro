@@ -2,6 +2,7 @@ package br.univates.ticketmasterplus.presentationGUI;
 
 import br.univates.ticketmasterplus.business.Event;
 import br.univates.ticketmasterplus.business.SeatReservation;
+import br.univates.ticketmasterplus.business.User;
 import br.univates.ticketmasterplus.businessDAO.TicketMasterPlusDAO;
 import java.awt.Color;
 import java.sql.SQLException;
@@ -15,10 +16,12 @@ import javax.swing.Timer;
 public class BuyTickets extends javax.swing.JFrame {
 
     private Event evento;
+    private User user;
     
-    public BuyTickets(Event eventoRecebido) {
+    public BuyTickets(Event eventoRecebido, User userR) {
         initComponents();
         this.evento = eventoRecebido;
+        this.user = userR;
         setSeats();
     }
 
@@ -592,9 +595,9 @@ public class BuyTickets extends javax.swing.JFrame {
         TicketMasterPlusDAO dao = new TicketMasterPlusDAO();
         String status = dao.getSeatReservationStatus(this.evento.getIdEvent(), 1);
         if (status == "disponivel"){
-            dao.reserveTicket(1, this.evento.getIdEvent(), "reservado");
+            dao.reserveTicket(1, this.evento.getIdEvent(), "reservado", this.user.getId());
         } else if (status == "reservado"){
-            dao.reserveTicket(1, this.evento.getIdEvent(), "disponivel");
+            dao.reserveTicket(1, this.evento.getIdEvent(), "disponivel", this.user.getId());
         }
         
     }//GEN-LAST:event_A1ActionPerformed

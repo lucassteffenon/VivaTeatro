@@ -195,7 +195,7 @@ public class MainScreen extends javax.swing.JFrame {
         if (this.evento.getName() != null) {
             TicketMasterPlusDAO dao = new TicketMasterPlusDAO();
             this.evento = dao.getEvento(this.evento.getName(), this.evento.getStartDate(), this.evento.getStartHour());
-            BuyTickets bt = new BuyTickets(this.evento);
+            BuyTickets bt = new BuyTickets(this.evento, this.user);
             bt.setLocationRelativeTo(null);
             bt.setVisible(true);  
         } else {
