@@ -43,7 +43,12 @@ public class TicketMasterPlusDAO {
     
     public void reserveTicket(int idSeat, int idEvent, String status, int iduser){
         Conexao con = new Conexao("PostgreSql", this.ip, this.port, this.nameDB, this.userDB, this.pswDB);
-        String sql = "UPDATE seatreservation SET status = '"+ status + "' WHERE idevent = "+idEvent+" AND idseat = "+idSeat+" AND iduser = "+iduser+"";
+        String sql = "";
+        if(status.equals("reservado")){
+            sql = "UPDATE seatreservation SET status = '"+ status + "', iduser = '"+ iduser + "' WHERE idevent = "+idEvent+" AND idseat = "+idSeat+"";
+        } else if (status.equals("disponivel")){
+            sql = "UPDATE seatreservation SET status = '"+ status + "' WHERE idevent = "+idEvent+" AND idseat = "+idSeat+" AND iduser = "+iduser+"";
+        }
         con.conect();
         con.queryUpdate(sql);
     }
@@ -315,7 +320,7 @@ public class TicketMasterPlusDAO {
                 String phone = rs.getString("phone");
                 boolean active = rs.getBoolean("active");
                 if (active) {
-                    User usuario = new User(id, name, email, password, phone);
+                    User usuario = new User(id, name, email, passwordU, phone);
                     return usuario;
                 }
             } else {

@@ -23,7 +23,7 @@ public class SeatReservation {
         this.idSeat = idS;
         this.idEvent = idE;
         this.idPerson = idPerson;
-        this.idUser = idUser;
+        this.idUser = idU;
         this.status = s;
         this.price = p;
     }

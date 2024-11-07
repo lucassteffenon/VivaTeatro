@@ -668,9 +668,9 @@ public class BuyTickets extends javax.swing.JFrame {
         SeatReservation sr = dao.getSeatReservationStatus(this.evento.getIdEvent(), 1);
         String status = sr.getStatus();
         int idUserSeat = sr.getIdUser();
-        if (status == "disponivel"){
+        if (status.equals("disponivel")){
             dao.reserveTicket(1, this.evento.getIdEvent(), "reservado", this.user.getId());
-        } else if (status == "reservado"){
+        } else if (status.equals("reservado")){
             if (idUserSeat == this.user.getId()) {
                 dao.reserveTicket(1, this.evento.getIdEvent(), "disponivel", this.user.getId());
             } else {
