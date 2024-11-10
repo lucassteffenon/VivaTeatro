@@ -47,6 +47,7 @@ public class MainScreen extends javax.swing.JFrame {
             this.user = user;
             initComponents();
             this.refreshEventsList();
+            this.labelUserHere.setText(this.user.getName());
             
             // Configuração do Timer para atualizar a lista a cada 10 segundos
             Timer timer = new Timer(2000, e -> {
@@ -77,9 +78,19 @@ public class MainScreen extends javax.swing.JFrame {
         btnCreateNewEvent = new javax.swing.JButton();
         btnEditEvent = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        labelUserHere = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         listaEventos = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuEditUser = new javax.swing.JMenuItem();
+        JMenuEditPerson = new javax.swing.JMenuItem();
+        jMenuRegister = new javax.swing.JMenu();
+        jMenuRegUser = new javax.swing.JMenuItem();
+        jMenuRegPerson = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -113,6 +124,10 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("User:");
+
+        labelUserHere.setText("userHere");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -130,13 +145,22 @@ public class MainScreen extends javax.swing.JFrame {
                         .addComponent(btnExit))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(46, 46, 46)
-                        .addComponent(btnEditEvent)))
+                        .addComponent(btnEditEvent))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelUserHere)))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(75, 75, 75)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(labelUserHere))
+                .addGap(53, 53, 53)
                 .addComponent(btnBuyTickets)
                 .addGap(18, 18, 18)
                 .addComponent(btnCreateNewEvent)
@@ -161,6 +185,36 @@ public class MainScreen extends javax.swing.JFrame {
 
         jLabel1.setText("Events List");
 
+        jMenu1.setText("File");
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+
+        jMenuEditUser.setText("User");
+        jMenu2.add(jMenuEditUser);
+
+        JMenuEditPerson.setText("Person");
+        jMenu2.add(JMenuEditPerson);
+
+        jMenuBar1.add(jMenu2);
+
+        jMenuRegister.setText("Users");
+
+        jMenuRegUser.setText("UserList");
+        jMenuRegUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuRegUserActionPerformed(evt);
+            }
+        });
+        jMenuRegister.add(jMenuRegUser);
+
+        jMenuRegPerson.setText("Person");
+        jMenuRegister.add(jMenuRegPerson);
+
+        jMenuBar1.add(jMenuRegister);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -184,7 +238,7 @@ public class MainScreen extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -242,21 +296,39 @@ public class MainScreen extends javax.swing.JFrame {
             es.setLocationRelativeTo(null);
             es.setVisible(true);
        } else {
-            JOptionPane.showMessageDialog(null, "Nenhum evento foi selecionado.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No events selected", "Warning", JOptionPane.WARNING_MESSAGE);
        }
        
         
     }//GEN-LAST:event_btnEditEventActionPerformed
 
+    private void jMenuRegUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuRegUserActionPerformed
+        
+        UserList ul = new UserList();
+        ul.setLocationRelativeTo(null);
+        ul.setVisible(true);
+        
+    }//GEN-LAST:event_jMenuRegUserActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem JMenuEditPerson;
     private javax.swing.JButton btnBuyTickets;
     private javax.swing.JButton btnCreateNewEvent;
     private javax.swing.JButton btnEditEvent;
     private javax.swing.JButton btnExit;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuEditUser;
+    private javax.swing.JMenuItem jMenuRegPerson;
+    private javax.swing.JMenuItem jMenuRegUser;
+    private javax.swing.JMenu jMenuRegister;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelUserHere;
     private javax.swing.JList<String> listaEventos;
     // End of variables declaration//GEN-END:variables
 }

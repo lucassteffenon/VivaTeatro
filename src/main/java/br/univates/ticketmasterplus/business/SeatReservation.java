@@ -13,16 +13,16 @@ public class SeatReservation {
     private int idSeatReservation;
     private int idSeat;
     private int idEvent;
-    private int idPerson;
+    private String docperson;
     private int idUser;
     private String status;
     private double price;
     
-    public SeatReservation(int idseatR, int idS, int idE, int idP, int idU, String s, double p){
+    public SeatReservation(int idseatR, int idS, int idE, String docP, int idU, String s, double p){
         this.idSeatReservation = idseatR;
         this.idSeat = idS;
         this.idEvent = idE;
-        this.idPerson = idPerson;
+        this.docperson = docP;
         this.idUser = idU;
         this.status = s;
         this.price = p;
@@ -56,12 +56,12 @@ public class SeatReservation {
         this.idEvent = idEvent;
     }
 
-    public int getIdPerson() {
-        return idPerson;
+    public String getDocPerson() {
+        return docperson;
     }
 
-    public void setIdPerson(int idPerson) {
-        this.idPerson = idPerson;
+    public void setDocPerson(String docPerson) {
+        this.docperson = docPerson;
     }
     
     public int getIdUser(){

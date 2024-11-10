@@ -150,7 +150,6 @@ public class EventScreen extends javax.swing.JFrame {
 
         LabelBasePrice.setText("Base Price:");
 
-        TextFieldEventName.setText("insert the name of the event here...");
         TextFieldEventName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 TextFieldEventNameFocusGained(evt);
@@ -160,7 +159,6 @@ public class EventScreen extends javax.swing.JFrame {
             }
         });
 
-        TextFieldStartDate.setText("insert here when the event will start, ex: 31/12/2024");
         TextFieldStartDate.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 TextFieldStartDateFocusLost(evt);
@@ -172,35 +170,30 @@ public class EventScreen extends javax.swing.JFrame {
             }
         });
 
-        TextFieldStartHour.setText("insert here what hour the event will start, ex: 13:00");
         TextFieldStartHour.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 TextFieldStartHourFocusLost(evt);
             }
         });
 
-        TextFieldEndDate.setText("insert here when the event will end, ex: 31/12/2024");
         TextFieldEndDate.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 TextFieldEndDateFocusLost(evt);
             }
         });
 
-        TextFieldEndHour.setText("insert here what hour the event will end, ex: 15:00");
         TextFieldEndHour.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 TextFieldEndHourFocusLost(evt);
             }
         });
 
-        TextFieldNumberOfSeats.setText("insert here the maximun seats of the event.");
         TextFieldNumberOfSeats.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 TextFieldNumberOfSeatsFocusLost(evt);
             }
         });
 
-        TextFieldBasePrice.setText("insert here the price of the event");
         TextFieldBasePrice.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 TextFieldBasePriceFocusLost(evt);
@@ -244,14 +237,13 @@ public class EventScreen extends javax.swing.JFrame {
                                     .addComponent(LabelStartHour)
                                     .addComponent(LabelEndDate)
                                     .addComponent(LabelEndHour))
-                                .addGap(18, 18, Short.MAX_VALUE)
+                                .addGap(42, 42, 42)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(TextFieldEndHour, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(TextFieldEventName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(TextFieldStartDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(TextFieldStartHour, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(TextFieldEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(TextFieldStartDate, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(TextFieldStartHour, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(TextFieldEndDate, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(TextFieldEndHour)
+                                    .addComponent(TextFieldEventName)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(LabelNumerSeats)
@@ -330,11 +322,7 @@ public class EventScreen extends javax.swing.JFrame {
 
     private void TextFieldEventNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TextFieldEventNameFocusLost
 
-        if (TextFieldEventName.getText().isEmpty()) {
-            TextFieldEventName.setText("insert the name of the event here...");
-        } else {
-            this.event.setName(TextFieldEventName.getText());
-        }
+        
         
         
 

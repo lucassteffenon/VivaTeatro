@@ -15,6 +15,10 @@ public class Person {
         this.fone = fone;
         this.email = email;
     }
+    
+    public Person(){
+        
+    }
 
     public String getNome() {
         return nome;

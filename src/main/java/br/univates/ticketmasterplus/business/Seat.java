@@ -19,9 +19,9 @@ public class Seat {
         this.posX = posX;
         this.posY = posY;
     }
-
-    public Seat() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    
+    public Seat(){
+        
     }
 
     public int getId() {
