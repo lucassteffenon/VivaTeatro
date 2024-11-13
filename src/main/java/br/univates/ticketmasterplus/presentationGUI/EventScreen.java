@@ -322,7 +322,7 @@ public class EventScreen extends javax.swing.JFrame {
 
     private void TextFieldEventNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TextFieldEventNameFocusLost
 
-        
+        this.event.setName(TextFieldEventName.getText());
         
         
 

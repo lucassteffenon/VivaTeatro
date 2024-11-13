@@ -21,7 +21,10 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Desktop;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class BuyTicketClient extends javax.swing.JFrame {
     
@@ -84,6 +87,16 @@ public class BuyTicketClient extends javax.swing.JFrame {
             e.printStackTrace();
         } finally {
             documento.close();
+        }
+        
+        // Abrir o PDF automaticamente após a geração
+        try {
+            File arquivoPDF = new File(nomeArquivo);
+            if (arquivoPDF.exists()) {
+                Desktop.getDesktop().open(arquivoPDF);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

@@ -43,6 +43,7 @@ public class VivaTeatroDAO {
         String sql = "UPDATE seatreservation SET status = '"+ status + "', docperson = '"+ doc + "' WHERE idevent = "+idEvent+" AND idseat = "+idSeat+"";
         con.conect();
         con.queryUpdate(sql);
+        con.disconect();
     }
     
     public void reserveTicket(int idSeat, int idEvent, String status, int iduser){
@@ -55,6 +56,7 @@ public class VivaTeatroDAO {
         }
         con.conect();
         con.queryUpdate(sql);
+        con.disconect();
     }
 
     public ArrayList<Event> getEventsList() throws SQLException {
@@ -95,8 +97,8 @@ public class VivaTeatroDAO {
                     evento.setBasePrice(basePrice);
                     events.add(evento);
                 }
-                con.disconect();
             }
+            con.disconect();
         } catch (SQLException ex) {
             System.out.println(ex.toString());
         }
@@ -134,6 +136,7 @@ public class VivaTeatroDAO {
                 evento.setSeatsNumber(numberSeats);
                 evento.setBasePrice(basePrice);
             }
+            con.disconect();
         } catch (SQLException ex) {
             System.out.println(ex.toString());
         }
@@ -170,6 +173,7 @@ public class VivaTeatroDAO {
                 }
             }
         }
+        con.disconect();
         
         this.createEventReservation(generatedId, basePrice);
 
@@ -195,6 +199,7 @@ public class VivaTeatroDAO {
         Conexao con = new Conexao("PostgreSql", this.ip, this.port, this.nameDB, this.userDB, this.pswDB);
         con.conect();
         con.queryUpdate(sql);
+        con.disconect();
         
     }
     
@@ -218,7 +223,7 @@ public class VivaTeatroDAO {
         Conexao con = new Conexao("PostgreSql", this.ip, this.port, this.nameDB, this.userDB, this.pswDB);
         con.conect();
         con.queryUpdate(sql);
-        
+        con.disconect();
     }
 
     public void createNewUser() {
@@ -247,6 +252,7 @@ public class VivaTeatroDAO {
                 User u = new User(id, name, email, password, phone, active);
                 users.add(u);
             }
+            con.disconect();
         } catch (SQLException ex) {
             System.out.println(ex.toString());
         }
@@ -260,6 +266,7 @@ public class VivaTeatroDAO {
         String sql = "INSERT INTO person (docperson, doctype, name, fone, email) VALUES ('"+ doc + "', '"+ doctype + "', '"+ name + "', '"+ fone + "', '"+ email + "')";
         con.conect();
         con.queryUpdate(sql);
+        con.disconect();
     }
     
     public void editPerson(){
@@ -281,6 +288,7 @@ public class VivaTeatroDAO {
                 String email = rs.getString("email");
                 p = new Person(name, doc, doctype, fone, email);
             }
+            con.disconect();
         } catch (SQLException ex) {
             System.out.println(ex.toString());
         }
@@ -312,6 +320,7 @@ public class VivaTeatroDAO {
                 int posY = rs.getInt("posy");
                 s = new Seat(id, description, multiplicator, status, specialPerson, posX, posY);
             }
+            con.disconect();
         } catch (SQLException ex) {
             System.out.println(ex.toString());
         }
@@ -336,6 +345,7 @@ public class VivaTeatroDAO {
                 Seat s = new Seat(id, description, multiplicator, status, specialPerson, posX, posY);
                 seats.add(s);
             }
+            con.disconect();
         } catch (SQLException ex) {
             System.out.println(ex.toString());
         }
@@ -360,7 +370,8 @@ public class VivaTeatroDAO {
                 double price = rs.getDouble("price");
                 SeatReservation sr = new SeatReservation(idSeatReservation, idSeat, idEvent, docperson, idUser, status, price);
                 seatR.add(sr);
-            } 
+            }
+            con.disconect();
         } catch (SQLException ex){
             System.out.println(ex.toString());
         }
@@ -377,6 +388,7 @@ public class VivaTeatroDAO {
             if (rs.next()) {
                 return false;
             }
+            con.disconect();
         } catch (SQLException ex) {
             Logger.getLogger(VivaTeatroDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -401,6 +413,7 @@ public class VivaTeatroDAO {
                 SeatReservation sr = new SeatReservation(idSeatReservation, idSeat, idEvent, docperson, idUser, status, price);
                 seats.add(sr);
             }
+            con.disconect();
         } catch (SQLException ex){
             System.out.println(ex.toString());
         }
@@ -424,6 +437,7 @@ public class VivaTeatroDAO {
                 double price = rs.getDouble("price");
                 sr = new SeatReservation(idSeatReservation, idSeat, idEvent, docperson, idUser, status, price);
             }
+            con.disconect();
         } catch (SQLException ex){
             System.out.println(ex.toString());
         }
@@ -448,6 +462,7 @@ public class VivaTeatroDAO {
                     User usuario = new User(id, name, email, passwordU, phone, active);
                     return usuario;
                 }
+                con.disconect();
             } else {
                 return null;
             }
