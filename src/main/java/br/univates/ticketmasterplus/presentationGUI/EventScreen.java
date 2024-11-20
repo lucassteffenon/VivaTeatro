@@ -9,6 +9,7 @@ import br.univates.ticketmasterplus.businessDAO.VivaTeatroDAO;
 import br.univates.ticketmasterplus.util.InvalidEntryException;
 import java.awt.Color;
 import javax.management.StringValueExp;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -27,7 +28,7 @@ public class EventScreen extends javax.swing.JFrame {
     
     public EventScreen(Event evento, int CrudCode) {
         initComponents();
-        this.btnCreate.setBackground(Color.red);
+        this.btnCreate.setBackground(Color.green);
         this.CrudCode = CrudCode;
         if (CrudCode == 1) {
             setEvent(evento);
@@ -342,6 +343,12 @@ public class EventScreen extends javax.swing.JFrame {
     private void TextFieldStartHourFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TextFieldStartHourFocusLost
        
         this.event.setStartHour(TextFieldStartHour.getText());
+        VivaTeatroDAO dao = new VivaTeatroDAO();
+        Event eventoOutro = dao.isValidEvento(this.event.getStartDate(), this.event.getStartHour());
+        if (eventoOutro != null) {
+            TextFieldStartHour.setBackground(Color.yellow);
+            JOptionPane.showMessageDialog(null, "Error. There's another event in this hour", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
         
     }//GEN-LAST:event_TextFieldStartHourFocusLost
 
@@ -376,9 +383,7 @@ public class EventScreen extends javax.swing.JFrame {
 
     private void TextFieldEventNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TextFieldEventNameFocusGained
 
-        if(TextFieldEventName.getText().equalsIgnoreCase("insert the name of the event here...")){
-            TextFieldEventName.setText("");
-        }
+    
 
     }//GEN-LAST:event_TextFieldEventNameFocusGained
 

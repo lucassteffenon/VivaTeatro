@@ -200,7 +200,7 @@ public class MainScreen extends javax.swing.JFrame {
 
         jMenuRegister.setText("Users");
 
-        jMenuRegUser.setText("UserList");
+        jMenuRegUser.setText("User List");
         jMenuRegUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuRegUserActionPerformed(evt);

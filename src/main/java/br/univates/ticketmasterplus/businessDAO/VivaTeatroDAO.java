@@ -31,9 +31,9 @@ import java.util.logging.Logger;
 public class VivaTeatroDAO {
     
     
-    //private String ip = "192.168.7.112";
-    private String ip = "localhost";
-    private String port = "5432";
+    private String ip = "192.168.7.113";
+    //private String ip = "localhost";
+    private String port = "5460";
     private String nameDB = "facil";
     private String userDB = "postgres";
     private String pswDB = "postgres";
@@ -57,6 +57,50 @@ public class VivaTeatroDAO {
         con.conect();
         con.queryUpdate(sql);
         con.disconect();
+    }
+    
+    public Event isValidEvento(String date, String hour) {
+        Event evento = new Event();
+        String sql = "SELECT * FROM Event WHERE enddate = ? AND endhour >= ?";
+        try {
+            Conexao con = new Conexao("PostgreSql", this.ip, this.port, this.nameDB, this.userDB, this.pswDB);
+            con.conect();
+
+            try (PreparedStatement stmt = con.getC().prepareStatement(sql)) {
+                stmt.setDate(1, java.sql.Date.valueOf(date));
+                stmt.setNString(2, hour);
+
+                ResultSet rs = stmt.executeQuery();
+
+                if (rs.next()) {
+                    int idEvent = rs.getInt("idevent");
+                    String eventDescription = rs.getString("eventdescription");
+                    String eventName = rs.getString("eventname");
+                    String startDate = rs.getString("startdate");
+                    String startHour = rs.getString("starthour");
+                    String endDate = rs.getString("enddate");
+                    String endHour = rs.getString("endhour");
+                    int numberSeats = rs.getInt("numberseats");
+                    int basePrice = rs.getInt("baseprice");
+
+                    evento.setIdEvent(idEvent);
+                    evento.setName(eventName);
+                    evento.setDescription(eventDescription);
+                    evento.setStartDate(startDate);
+                    evento.setStartHour(startHour);
+                    evento.setEndDate(endDate);
+                    evento.setEndHour(endHour);
+                    evento.setSeatsNumber(numberSeats);
+                    evento.setBasePrice(basePrice);
+                    
+                }
+            }
+            con.disconect();
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        }
+        
+        return evento;
     }
 
     public ArrayList<Event> getEventsList() throws SQLException {
