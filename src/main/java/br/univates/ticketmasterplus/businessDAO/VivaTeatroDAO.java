@@ -31,6 +31,7 @@ import java.util.logging.Logger;
 public class VivaTeatroDAO {
     
     
+    //private String ip = "131.108.103.124";
     private String ip = "192.168.7.113";
     //private String ip = "localhost";
     private String port = "5460";

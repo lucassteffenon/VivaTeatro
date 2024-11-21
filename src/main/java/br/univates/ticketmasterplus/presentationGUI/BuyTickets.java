@@ -110,12 +110,15 @@ public class BuyTickets extends javax.swing.JFrame {
                     for (int i = 0; i < botoes.size() && i < sr.size(); i++) {
                         JButton botao = botoes.get(i);
                         String status = sr.get(i).getStatus();
+                        int userRe = sr.get(i).getIdUser();
 
                         if (status.equals("disponivel")) {
                             botao.setBackground(Color.GREEN);
-                        } else if (status.equals("reservado")) {
+                        } else if (status.equals("reservado") && userRe == this.user.getId()) {
                             botao.setBackground(Color.YELLOW);
-                        } else if (status.equals("vendido")) {
+                        } else if (status.equals("reservado") && userRe != this.user.getId()) {
+                            botao.setBackground(Color.orange);
+                        }  else if (status.equals("vendido")) {
                             botao.setBackground(Color.RED);
                         }
                     }
